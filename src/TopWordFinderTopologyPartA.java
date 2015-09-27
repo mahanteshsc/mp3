@@ -21,7 +21,7 @@ public class TopWordFinderTopologyPartA {
 
     Config config = new Config();
     config.setDebug(true);
-
+    config.entrySet();
 
     /*
     ----------------------TODO-----------------------

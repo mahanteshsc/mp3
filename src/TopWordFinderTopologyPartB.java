@@ -23,6 +23,10 @@ public class TopWordFinderTopologyPartB {
     Config config = new Config();
     config.setDebug(true);
 
+    String fileName = args[1];
+    System.out.println(" fileName " + fileName);
+    config.put("linespout.file", fileName);
+
 
     /*
     ----------------------TODO-----------------------
