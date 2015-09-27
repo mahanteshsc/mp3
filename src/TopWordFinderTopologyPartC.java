@@ -24,7 +24,7 @@ public class TopWordFinderTopologyPartC {
     Config config = new Config();
     config.setDebug(true);
 
-    String fileName = args[1];
+    String fileName = args[0];
     System.out.println(" fileName " + fileName);
     config.put("linespout.file", fileName);
 

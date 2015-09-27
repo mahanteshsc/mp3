@@ -25,15 +25,15 @@ public class TopWordFinderTopologyPartD {
     Config config = new Config();
     config.setDebug(true);
 
-    String fileName = args[1];
+    String fileName = args[0];
     System.out.println(" fileName " + fileName);
     config.put("linespout.file", fileName);
 
     builder.setSpout("spout", new FileReaderSpout(), 1);
     builder.setBolt("split", new SplitSentenceBolt(), 8).shuffleGrouping("spout");
     builder.setBolt("normalize", new NormalizerBolt(), 12).shuffleGrouping("split");
-    builder.setBolt("count", new WordCountBolt(), 8).shuffleGrouping("normalize");
-    builder.setBolt("top-n", new TopNFinderBolt(N), 12).fieldsGrouping("normalize", new Fields("word"));
+    builder.setBolt("count", new WordCountBolt(), 12).shuffleGrouping("normalize");
+    builder.setBolt("top-n", new TopNFinderBolt(N), 1).fieldsGrouping("count", new Fields("word"));
 
     /*
     ----------------------TODO-----------------------

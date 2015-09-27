@@ -14,7 +14,8 @@ public class SplitSentenceBolt extends BaseBasicBolt {
        String[]words=sentence.split("[\\s~`!@#$%^&*(-)+=_:;'\",.<>?/\\\\0-9"+"\\]\\[\\}\\{]+");
 
        for(String word:words){
-         collector.emit(new Values(word));
+           if(!word.trim().equals(""))
+             collector.emit(new Values(word));
        }
    }
    @Override

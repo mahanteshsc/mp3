@@ -6,6 +6,7 @@ import backtype.storm.tuple.Tuple;
 import backtype.storm.tuple.Values;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
 /**
@@ -35,8 +36,19 @@ public class TopNFinderBolt extends BaseBasicBolt {
       if (currentTopWords.size() < this.N && !currentTopWords.containsKey(word)) {
           currentTopWords.put(word, count);
       } else {
-        // replace one with lowest count
-
+//          Iterator it = currentTopWords.entrySet().iterator();
+//          while (it.hasNext()) {
+//              Map.Entry pair = (Map.Entry)it.next();
+//              System.out.println(pair.getKey() + " = " + pair.getValue());
+//              it.remove(); // avoids a ConcurrentModificationException
+//          }
+          for (Map.Entry<String, Integer> entry : currentTopWords.entrySet()) {
+              if(entry.getValue()< count){
+                  currentTopWords.remove(entry.getKey());
+                  currentTopWords.put(word,count);
+                  break;
+              }
+          }
       }
 
       //reports the top N words periodically
